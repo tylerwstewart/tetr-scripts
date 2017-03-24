@@ -45,7 +45,6 @@ install_docker_env() {
     autoconf.tcz \
     automake.tcz \
     compiletc.tcz \
-    curl.tcz \
     gettext.tcz \
     libtool-dev.tcz \
     perl_xml_parser.tcz \
