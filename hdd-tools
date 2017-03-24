@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . ./docker.sh
+#update_docker_image $TAG_DOCKER_CURRENT
 
 UPDATES="hdd-tests"
 HDD="smartmontools lcdproc"

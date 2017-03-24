@@ -22,6 +22,7 @@ mkdir_volume_directories() {
 clone_git_repos() {
   local r=""
   for r in $REPOS; do
+    [ -d "$HOST_SRC/$(basename ${r%%.git})" ] && continue
     ( cd $HOST_SRC;
       git clone $r
     )

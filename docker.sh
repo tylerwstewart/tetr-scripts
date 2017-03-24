@@ -5,8 +5,17 @@ HOST_DIRS="$HOST_DLVR $HOST_SRCS"
 TC_DLVR="/home/tc/tc-deliver"
 TC_RCONF="$TC_DLVR/remaster/configs"
 
-TETR_TAG="7.2-x86"
+TAG_DOCKER_477="4.7.7-x86"
+TAG_DOCKER_CURRENT="7.2-x86"
+TAG_DOCKER_CURRENT_64="7.2-x86_64"
+TETR_TAG="$TAG_DOCKER_CURRENT"
 DOCKER_IMAGE="chazzam/tetr:$TETR_TAG"
+if [ ! -z "$TETR_DOCKER_IMAGE" ]; then
+  DOCKER_IMAGE="$TETR_DOCKER_IMAGE"
+  if [ ! -z "${TETR_DOCKER_IMAGE##*:}" ]; then
+    TETR_TAG="${TETR_DOCKER_IMAGE##*:}"
+  fi
+fi
 DOCKER_VOL_DLVR="-v $HOST_DLVR:$TC_DLVR:rw"
 DOCKER_VOL_SRCS="-v $HOST_SRCS:/home/tc/src:rw"
 DOCKER_VOLUMES="$DOCKER_VOL_DLVR $DOCKER_VOL_SRCS"
@@ -14,8 +23,6 @@ DOCKER_ENVS=""
 if [ ! -z "$TETR_TCMIRROR" ]; then
   DOCKER_ENVS="$DOCKER_ENVS -e TCMIRROR=$TETR_TCMIRROR"
 fi
-
-DOCKER_ARGS="--rm $DOCKER_VOLUMES $DOCKER_ENVS $DOCKER_IMAGE"
 
 # For python script to handle using Docker.io for building and remastering
 # https://wiki.python.org/moin/PortingToPy3k/BilingualQuickRef
@@ -52,7 +59,8 @@ EOF
 update_docker_image() {
   local tetr_tag=$TETR_TAG
   [ -z "$1" ] || tetr_tag="$1"
-  DOCKER_IMAGE="chazzam/tetr:$tetr_tag"
+  TETR_TAG=$tetr_tag
+  DOCKER_IMAGE="${DOCKER_IMAGE%%:*}:$tetr_tag"
   DOCKER_ARGS="--rm $DOCKER_VOLUMES $DOCKER_ENVS $DOCKER_IMAGE"
 }
 
@@ -107,3 +115,5 @@ remaster() {
   docker run $DOCKER_ARGS "$REMASTER" $@ \
     || exerr "Error bundling remastered image for $REMASTER";
 }
+
+update_docker_image;
