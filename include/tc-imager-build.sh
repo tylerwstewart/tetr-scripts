@@ -23,7 +23,7 @@ exerr() {
 }
 
 verify_git() {
-  $TCBIN/git-clones.sh git
+  $TCBIN/install.sh git
 }
 
 update_git() {
@@ -139,7 +139,7 @@ PACKAGE_SUBDIR="${TC_VER}.x/$TC_ARCH/tcz"
 
 verify_git;
 
-. ${TCHOME}/.profile
+. ${TCHOME}/.profile $TCHOME/.ashrc
 [ ! -z "$TCMIRROR" ] && echo "$TCMIRROR" > /opt/tcemirror
 if [ "$1" = "git" ]; then
   update_git;
