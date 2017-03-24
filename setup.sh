@@ -7,6 +7,7 @@ REPOS="
 https://github.com/chazzam/tc-diskless-remaster.git
 https://github.com/chazzam/tc-ext-tools.git
 https://github.com/chazzam/tc-ext-tools-packages.git
+$TETR_REPOS
 "
 HOST_DLVR=$HOME/tc-deliver
 HOST_SRC=$HOME/srctc

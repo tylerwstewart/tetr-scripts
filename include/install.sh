@@ -55,6 +55,7 @@ install_docker_env() {
     xz.tcz \
     zsync.tcz
   # remove the downloaded package files, but leave the tce.installed files
+  # That way if we install additional packages, it won't reinstall any of these
   rm -rf /tmp/tce/optional/*.tcz*
   # Copy our scripts and configs into the environment
   [ -d $TCHOME/.local/bin/ ] || mkdir -p $TCHOME/.local/bin/
@@ -114,6 +115,7 @@ LDFLAGS="$LD_F"
 CC="gcc -flto -fuse-linker-plugin"
 CXX="g++ -flto -fuse-linker-plugin"
 
+export CFLAGS CXXFLAGS LDFLAGS CC CXX
 EOF
       ) >> $shrc ||exerr "failed to update shell rc"
     fi
