@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. ./docker.sh
+
+docker_shell --login;

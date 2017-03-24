@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. ./docker.sh
+
+DAHDI="libnewt dahdi-linux-complete dahdi-complete"
+ASTERISK="libpri asterisk-sounds-en"
+ASTERISK_8="$ASTERISK asterisk-1.8"
+ASTERISK_13="$ASTERISK libjansson pjproject asterisk-13"
+TC_4="openssl squashfs-tools usbutils"
+TC_7=""
+VIRTUAL_PACKAGES="$TC_7"
+UPDATES="dahdi-linux-complete libpri asterisk-13"
+
+PACKAGES="$UPDATES"
+if [ "$1" = "-N" ]; then
+  PACKAGES="$VIRTUAL_PACKAGES $DAHDI $ASTERISK_13"
+fi
+
+build_packages $PACKAGES
+remaster asterisk.cfg

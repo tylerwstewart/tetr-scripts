@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. ./docker.sh
+
+update_docker_image "4.7.7-x86";
+
+DAHDI="libnewt dahdi-linux-complete dahdi-complete"
+ASTERISK="libpri asterisk-sounds-en"
+ASTERISK_8="$ASTERISK asterisk-1.8"
+ASTERISK_13="$ASTERISK libjansson pjproject asterisk-13"
+UPDATES="production-tests"
+PRODTEST="bx33-utils digium-env hwtest perl-production-libs lcdproc $UPDATES"
+TC_4="openssl squashfs-tools usbutils"
+TC_7=""
+VIRTUAL_PACKAGES="$TC_4"
+PACKAGES="$UPDATES"
+
+if [ "$1" = "-N" ]; then
+  PACKAGES="$VIRTUAL_PACKAGES $DAHDI $ASTERISK_13 $PRODTEST"
+fi
+
+build_packages $PACKAGES
+remaster prodtest.cfg

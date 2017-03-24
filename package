@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. ./docker.sh
+
+if [ "$1" = "-D" ]; then
+  shift;
+  TAG="$1"
+  shift
+  update_docker_image "$TAG";
+fi
+
+build_packages $@

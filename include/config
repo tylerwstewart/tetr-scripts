@@ -1,0 +1,12 @@
+HashKnownHosts	no
+
+Host *
+  ControlMaster			auto
+  ControlPath			~/.ssh/%r@%h-%p
+  ControlPersist		600
+  ForwardX11			no
+  ForwardAgent			no
+  Protocol 			2
+  UseRoaming 			no
+  StrictHostKeyChecking		no
+  UserKnownHostsFile		/dev/null
