@@ -83,7 +83,7 @@ install_tet() {
   ln -s $srcdir/common/build "$datadir/tet/build.sample"||exerr "failed to link configs"
   ln -s $srcdir/common/functions "$datadir/tet/functions.sh"||exerr "failed to link configs"
   ln -s $srcdir/common/tet-functions "$sysconfdir/init.d/tet-functions"||exerr "failed to link configs"
-  ln -sf $srcdir/common/tet-functions "/etc/init.d/tet-functions"||exerr "failed to link configs"
+  sudo ln -sf $srcdir/common/tet-functions "/etc/init.d/tet-functions"||exerr "failed to link configs"
 
   # Actually copy the config file so we can edit it as needed.
   install -D -m 644 -o $TCUSER -g staff $srcdir/config.sample "$confdir/tet.conf"||exerr "failed to link configs"
