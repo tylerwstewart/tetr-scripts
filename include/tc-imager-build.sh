@@ -58,12 +58,6 @@ tet() {
   ${TCBIN}/buildit $1 2>&1 |tee /tmp/tet-log-$1.txt
   PACKAGES_DIR="$PACKAGES/$PACKAGE_SUBDIR"
   SUBMITS_DIR="$SUBMITS/$PACKAGE_SUBDIR"
-  local print_cmd=""
-  if [ ! -z "$(grep failed /tmp/tet-log-$1.txt)" ]; then
-    print_cmd="$(grep 'buildit --print' /tmp/tet-log-$1.txt| egrep -o 'buildit --print [a-z]+')"
-    $print_cmd
-    exerr "Couldn't build TET package"
-  fi
   [ -d "${PACKAGES_DIR}" ] || \
     sudo mkdir -p "${PACKAGES_DIR}" || \
     exerr "Couldn't make packages directory"
@@ -72,6 +66,14 @@ tet() {
     exerr "Couldn't make Submittables directory"
   sudo chown -R $TCUSER:staff ${DELIVER}
   sudo chmod -R u+rwX,g+rwX,o+rwX ${DELIVER}
+  ln -s ${PACKAGES_DIR}/*.tcz* /etc/sysconfig/tcedir/optional/ 2>/dev/null
+  local print_cmd=""
+  if [ ! -z "$(grep failed /tmp/tet-log-$1.txt)" ]; then
+    print_cmd="$(grep 'buildit --print' /tmp/tet-log-$1.txt| egrep -o 'buildit --print [a-z]+')"
+    print_cmd="${print_cmd//buildit/buildit $1}"
+    $print_cmd
+    exerr "Couldn't build TET package"
+  fi
 
   printf "\nCopying generated deliverables to destinations...\n"
   # Copy packages to src volume
