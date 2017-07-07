@@ -55,12 +55,12 @@ tet() {
   # build the requested package(s)
   cd ${TETPKG}/ || exerr "No TET packages available"
   ${TCBIN}/update-tet-database || exerr "No TET database"
-  ${TCBIN}/buildit $1 2>&1 |tee /tmp/tet-log-$1.txt || exerr "Couldn't build TET package"
+  ${TCBIN}/buildit $1 2>&1 |tee /tmp/tet-log-$1.txt
   PACKAGES_DIR="$PACKAGES/$PACKAGE_SUBDIR"
   SUBMITS_DIR="$SUBMITS/$PACKAGE_SUBDIR"
   local print_cmd=""
   if [ ! -z "$(grep failed /tmp/tet-log-$1.txt)" ]; then
-    print_cmd="$(grep 'buildit --print' /tmp/tet-log-$1.txt| egrep -o 'buildit --print [a-z]+\s*$')"
+    print_cmd="$(grep 'buildit --print' /tmp/tet-log-$1.txt| egrep -o 'buildit --print [a-z]+')"
     $print_cmd
     exerr "Couldn't build TET package"
   fi
