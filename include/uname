@@ -8,6 +8,7 @@ TC4="3.0.21-tinycore"
 TC5="3.8.13-tinycore"
 TC6="3.16.6-tinycore"
 TC7="4.2.9-tinycore"
+TC8="4.8.17-tinycore"
 
 TC_ARCH=$(file -b /bin/busybox|cut -d, -f1|egrep -o [0-9]{2})
 TC_VER=$(version|cut -d. -f1)
