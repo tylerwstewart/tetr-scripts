@@ -55,7 +55,6 @@ tet() {
   # build the requested package(s)
   cd ${TETPKG}/ || exerr "No TET packages available"
   ${TCBIN}/update-tet-database || exerr "No TET database"
-  ${TCBIN}/buildit $1 2>&1 |tee /tmp/tet-log-$1.txt
   PACKAGES_DIR="$PACKAGES/$PACKAGE_SUBDIR"
   SUBMITS_DIR="$SUBMITS/$PACKAGE_SUBDIR"
   [ -d "${PACKAGES_DIR}" ] || \
@@ -67,6 +66,7 @@ tet() {
   sudo chown -R $TCUSER:staff ${DELIVER}
   sudo chmod -R u+rwX,g+rwX,o+rwX ${DELIVER}
   ln -s ${PACKAGES_DIR}/*.tcz* /etc/sysconfig/tcedir/optional/ 2>/dev/null
+  ${TCBIN}/buildit $1 2>&1 |tee /tmp/tet-log-$1.txt
   local print_cmd=""
   if [ ! -z "$(grep failed /tmp/tet-log-$1.txt)" ]; then
     print_cmd="$(grep 'buildit --print' /tmp/tet-log-$1.txt| egrep -o 'buildit --print [a-z]+')"
