@@ -10,15 +10,15 @@ TC6="3.16.6-tinycore"
 TC7="4.2.9-tinycore"
 TC8="4.8.17-tinycore"
 
-TC_ARCH=$(file -b /bin/busybox|cut -d, -f1|egrep -o [0-9]{2})
+TC_ARCHREAD=$(file -b /bin/busybox|cut -d, -f1|egrep -o [0-9]{2})
 TC_VER=$(version|cut -d. -f1)
 KERNEL=$(eval echo \$TC${TC_VER})
 [ -z "$KERNEL" ] && exit 1
-[ "$TC_ARCH" = "64" ] && KERNEL="${KERNEL}64"
 
 TC_ARCH="i686"
-if [ "$TC_ARCH" = "64" ]; then
+if [ "$TC_ARCHREAD" = "64" ]; then
   TC_ARCH="x86_64"
+  KERNEL="${KERNEL}64"
 else
   TC_ARCH_INTEL="i486"
   INTEL=$(file -b /bin/busybox|cut -d, -f2|egrep -o [0-9]{3}$)

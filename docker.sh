@@ -77,7 +77,7 @@ mkdir_volume_directories() {
 docker_build() {
   local build_args=""
   build_args="$(echo $DOCKER_ENVS|sed -e 's/-e /--build-arg /g')"
-  ( cd ..;
+  ( [ -z "$1" ] || cd $1;
     docker build $build_args -t $DOCKER_IMAGE .
   )
 }
@@ -100,6 +100,7 @@ build_packages() {
     shift
   fi
   for pkg in $@; do
+    echo "Launching $DOCKER_IMAGE for building package $pkg"
     docker run $DOCKER_ARGS $do_update tet $pkg || exerr "Error building package $pkg";
   done
 }
