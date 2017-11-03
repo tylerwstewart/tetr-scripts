@@ -10,6 +10,8 @@ $TETR_REPOS
 HOST_DLVR=$HOME/tc-deliver
 HOST_SRC=$HOME/srctc
 HOST_DIRS="$HOST_DLVR $HOST_SRC"
+[ -z "$DOCKER_REPO" ] && DOCKER_REPO="https://github.com/chazzam/docker-tetr"
+DOCKER_REPO_NAME="$(basename $DOCKER_REPO)"
 
 mkdir_volume_directories() {
   for d in $HOST_DIRS; do
@@ -19,7 +21,7 @@ mkdir_volume_directories() {
 
 clone_git_repos() {
   local r=""
-  for r in $REPOS; do
+  for r in $REPOS $DOCKER_REPO; do
     [ -d "$HOST_SRC/$(basename ${r%%.git})" ] && continue
     ( cd $HOST_SRC;
       git clone $r
@@ -33,17 +35,17 @@ docker_pull() {
   for d in $DOCKER_TETRS; do
     update_docker_image "$d";
     docker pull $DOCKER_IMAGE || { \
-      echo "docker image $DOCKER_IMAGE not available, trying to build..."; \
-      ./buildit -D $d; }
+      printf "\n\n\ndocker image %s not available, trying to build...\n\n" "$DOCKER_IMAGE"; \
+      ./buildit -D $d "$HOST_SRC/$DOCKER_REPO_NAME/"; }
   done
 }
 
 if [ "$1" = "-N" ]; then
   shift
   echo "Doing initial setup"
-  docker_pull;
   mkdir_volume_directories;
   clone_git_repos;
+  docker_pull;
 else
   echo "Did you mean: $0 -N"
 fi
