@@ -40,12 +40,26 @@ docker_pull() {
   done
 }
 
+docker_build() {
+  for d in $DOCKER_TETRS; do
+    update_docker_image "$d";
+    printf "\nBuilding %s\n" "$DOCKER_IMAGE";
+    ./buildit -D $d "$HOST_SRC/$DOCKER_REPO_NAME/";
+  done
+}
+
 if [ "$1" = "-N" ]; then
   shift
-  echo "Doing initial setup"
+  echo "Doing initial setup, pulling docker images"
   mkdir_volume_directories;
   clone_git_repos;
   docker_pull;
+elif [ "$1" = "-B" ]; then
+  shift
+  echo "Doing initial setup, building docker images locally"
+  mkdir_volume_directories;
+  clone_git_repos;
+  docker_build;
 else
   echo "Did you mean: $0 -N"
 fi
