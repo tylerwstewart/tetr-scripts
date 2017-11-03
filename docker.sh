@@ -46,8 +46,8 @@ exerr() {
 
 To troubleshoot this failed tet build of $pkg:
   docker run -it --entrypoint sh $DOCKER_ARGS --login
+    tc-imager-build.sh tet $pkg
     cd ~/tc-ext-tools/packages/$pkg
-    buildit
 
 EOF
   [ ! -z "$REMASTER" ] && cat<<EOF

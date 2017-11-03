@@ -1,8 +1,6 @@
 #!/bin/sh
-TETR_477x86="chazzam/tetr:4.7.7-x86"
-TETR_72x86="chazzam/tetr:7.2-x86"
-TETR_72x86_64="chazzam/tetr:7.2-x86_64"
-DOCKER_TETRS="$TETR_72x86_64 $TETR_72x86 $TETR_477x86"
+. ./docker.sh
+DOCKER_TETRS="$TAG_DOCKER_CURRENT $TAG_DOCKER_80 $TAG_DOCKER_477 $TAG_DOCKER_80_64"
 REPOS="
 https://github.com/chazzam/tc-diskless-remaster.git
 https://github.com/chazzam/tc-ext-tools.git
@@ -31,8 +29,12 @@ clone_git_repos() {
 
 docker_pull() {
   local d=""
+  local full_tag=""
   for d in $DOCKER_TETRS; do
-    docker pull $d
+    update_docker_image "$d";
+    docker pull $DOCKER_IMAGE || { \
+      echo "docker image $DOCKER_IMAGE not available, trying to build..."; \
+      ./buildit -D $d; }
   done
 }
 
