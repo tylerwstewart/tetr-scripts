@@ -78,7 +78,8 @@ docker_build() {
   local build_args=""
   build_args="$(echo $DOCKER_ENVS|sed -e 's/-e /--build-arg /g')"
   ( [ -z "$1" ] || cd $1;
-    docker build $build_args -t $DOCKER_IMAGE .
+    git checkout $TETR_TAG || { printf "\n\n\nERROR: Failed to build %s\n\n\n" "$DOCKER_IMAGE"; exit 1; }
+    docker build $build_args -t $DOCKER_IMAGE .;
   )
 }
 
