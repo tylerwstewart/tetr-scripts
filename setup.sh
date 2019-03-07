@@ -2,15 +2,15 @@
 . ./docker.sh
 DOCKER_TETRS="$TAG_DOCKER_CURRENT $TAG_DOCKER_80 $TAG_DOCKER_477 $TAG_DOCKER_80_64"
 REPOS="
-https://github.com/chazzam/tc-diskless-remaster.git
-https://github.com/chazzam/tc-ext-tools.git
-https://github.com/chazzam/tc-ext-tools-packages.git
+https://github.com/tylerwstewart/tc-diskless-remaster.git
+https://github.com/tylerwstewart/tc-ext-tools.git
+https://github.com/tylerwstewart/tc-ext-tools-packages.git
 $TETR_REPOS
 "
 HOST_DLVR=$HOME/tc-deliver
 HOST_SRC=$HOME/srctc
 HOST_DIRS="$HOST_DLVR $HOST_SRC"
-[ -z "$DOCKER_REPO" ] && DOCKER_REPO="https://github.com/chazzam/docker-tetr"
+[ -z "$DOCKER_REPO" ] && DOCKER_REPO="https://github.com/tylerwstewart/docker-tetr"
 DOCKER_REPO_NAME="$(basename $DOCKER_REPO)"
 
 mkdir_volume_directories() {

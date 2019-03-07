@@ -3,7 +3,7 @@
 TCUSER=`cat /etc/sysconfig/tcuser`
 TCHOME=/home/$TCUSER;
 TCSOURCE=$TCHOME/src;
-GIT_URL="https://github.com/chazzam"
+GIT_URL="https://github.com/tylerwstewart"
 GIT_REPOS="tc-ext-tools tc-ext-tools-packages tc-diskless-remaster"
 PKG_REPOS="tc-ext-tools-packages"
 REMASTER_REPO="tc-diskless-remaster"
