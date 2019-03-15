@@ -1,6 +1,6 @@
 #!/bin/sh
 . ./docker.sh
-DOCKER_TETRS="$TAG_DOCKER_CURRENT $TAG_DOCKER_80 $TAG_DOCKER_477 $TAG_DOCKER_80_64"
+DOCKER_TETRS="$TAG_DOCKER_CURRENT $TAG_DOCKER_80 $TAG_DOCKER_100 $TAG_DOCKER_100_64"
 REPOS="
 https://github.com/tylerwstewart/tc-diskless-remaster.git
 https://github.com/tylerwstewart/tc-ext-tools.git
