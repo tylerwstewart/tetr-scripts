@@ -117,10 +117,10 @@ search_config() {
 tc_remaster() {
   # TODO: add support for specifying a version string to add to the name of the output
   [ -d "${REMASTER}/" ] || mkdir -p "${REMASTER}/" || exerr "Couldn't make remaster directory"
-  TC_PYTHON_36="python3.6.tcz"
-  tce-load -wic $TC_PYTHON_36 || \
-    { tet python3.6; tce-load -ic python3.6; } || \
-    exerr "Couldn't load Python 3.6"
+  #~ TC_PYTHON_36="python3.6.tcz"
+  #~ tce-load -wic $TC_PYTHON_36 || \
+    #~ { tet python3.6; tce-load -ic python3.6; } || \
+    #~ exerr "Couldn't load Python 3.6"
   [ -f /usr/local/bin/python3 ] || sudo ln -s $(which python3.6) /usr/local/bin/python3
   CONFIG="$1"
   [ -r "$1" ] || CONFIG=$(search_config "$REMASTER" "$1")
