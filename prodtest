@@ -2,7 +2,7 @@
 
 . ./docker.sh
 #update_docker_image $TAG_DOCKER_477;
-update_docker_image $TAG_DOCKER_80;
+update_docker_image $TAG_DOCKER_CURRENT_64;
 
 DAHDI="libnewt dahdi-linux-complete dahdi-complete"
 ASTERISK="libpri asterisk-sounds-en"
