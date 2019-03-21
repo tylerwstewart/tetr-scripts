@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. ./docker.sh
+update_docker_image $TAG_DOCKER_CURRENT_64
+
+if [ "$1" = "-D" ]; then
+  shift;
+  TAG="$1"
+  shift
+  update_docker_image "$TAG";
+fi
+
+docker_shell --login;

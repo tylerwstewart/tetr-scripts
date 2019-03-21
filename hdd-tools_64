@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. ./docker.sh
+update_docker_image $TAG_DOCKER_CURRENT_64
+
+UPDATES="hdd-tests"
+HDD="smartmontools lcdproc"
+TC_4="openssl"
+TC_7=""
+
+PACKAGES="$UPDATES"
+if [ "$1" = "-N" ]; then
+  PACKAGES="$TC_7 $HDD $UPDATES"
+fi
+
+
+build_packages $PACKAGES
+remaster hdd-tools.cfg

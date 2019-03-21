@@ -48,6 +48,7 @@ install_docker_env() {
     gettext.tcz \
     libtool-dev.tcz \
     perl_xml_parser.tcz \
+    python3.6.tcz \
     $squashtcz \
     tar.tcz \
     wget.tcz \
