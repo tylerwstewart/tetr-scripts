@@ -1,18 +1,18 @@
 #!/bin/sh
 
 . ./docker.sh
+#update_docker_image $TAG_DOCKER_477;
+update_docker_image $TAG_DOCKER_CURRENT_64;
 
 DAHDI="libnewt dahdi-linux-complete dahdi-complete"
 ASTERISK="libpri asterisk-sounds-en"
 ASTERISK_8="$ASTERISK asterisk-1.8"
-#ASTERISK_13="$ASTERISK libjansson pjproject asterisk-13"
-ASTERISK_13="$ASTERISK libjansson asterisk-13"
+ASTERISK_13="$ASTERISK libjansson pjproject asterisk-13"
 UPDATES="production-tests"
 PRODTEST="bx33-utils digium-env hwtest perl-production-libs lcdproc $UPDATES"
 TC_4="openssl squashfs-tools usbutils"
 TC_7=""
-#VIRTUAL_PACKAGES="$TC_4"
-VIRTUAL_PACKAGES=""
+VIRTUAL_PACKAGES="$TC_4"
 PACKAGES="$UPDATES"
 
 if [ "$1" = "-N" ]; then
